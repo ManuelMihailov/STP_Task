@@ -1,0 +1,45 @@
+﻿@model CompanySearchViewModel
+
+<div class="container discord-3-background">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-3">
+            <label>Enter Keyword</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="form-group">
+            <input id="keyword" class="form-control-1" style="border:px solid;" size="35" />
+        </div>
+
+        <div class="form-group">
+            <button type="submit" id="search-catalog" onclick="SearchEventHandler()">Search</button>
+        </div>
+        <div>&nbsp;&nbsp;&nbsp;<a class="btn" asp-controller="Company" asp-action="AddCompany">Add Company</a></div>
+    </div>
+    <div id="search-results">
+        <partial name="_SearchResults" model="@Model.CompanySearchResultsViewModel"/>
+    </div>
+</div>
+
+<script>
+    function NextPage() {
+        var Keyword = $('#current-keyword').val();
+        var Page = parseInt($('#current-page').val()) + 1;
+        $('#search-results').load('/company/displaysearchresults', { keyword: Keyword, page: Page });
+    }
+    function SearchEventHandler() {
+        var Keyword = $('#keyword').val();
+        var Page = 1;
+        $('#search-results').load('/company/displaysearchresults', { keyword: Keyword, page: Page });
+    }
+
+    function PrevPage() {
+        var Keyword = $('#current-keyword').val();
+        var Page = parseInt($('#current-page').val()) - 1;
+        $('#search-results').load('/company/displaysearchresults', { keyword: Keyword, page: Page });
+    }
+    window.onload = SearchEventHandler;
+</script>

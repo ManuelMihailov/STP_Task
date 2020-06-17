@@ -1,0 +1,51 @@
+﻿@model OfficeAssigningViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="container">
+                @foreach (var item in Model.Employees)
+                {
+                    <div class="row"><hr width="100%" class="lighter" /></div>
+                    <div class="row">
+                        <div class="col-9">
+                            <p>
+                                @item.FirstName @item.LastName / @item.ExperienceLevel <br />
+                                @if (item.CompanyName == null)
+                                {
+                                    <a class="btn btn-sm btn-outline-secondary" style="color:deepskyblue;" onclick="AssignToOffice(@item.Id)">Assign</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-sm btn-outline-secondary" style="color:deepskyblue;" onclick="UnassignFromOffice(@item.Id)">Unassign</a>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                }
+        </div>
+    </div>
+</div>
+<script>
+    function AssignToOffice(eId) {
+        let OfficeId = $("#keyword").val();
+        $.ajax({
+            url: '/company/assignemployee',
+            type: "POST",
+            data: { eId: eId, oId: OfficeId },
+            success: function () {
+                SearchEventHandler();
+            }
+        });
+    }
+    function UnassignFromOffice(eId) {
+        let OfficeId = $("#keyword").val();
+        $.ajax({
+            url: '/company/unassignemployee',
+            type: "POST",
+            data: { eId: eId, oId: OfficeId },
+            success: function () {
+                SearchEventHandler();
+            }
+        });
+    }
+</script>

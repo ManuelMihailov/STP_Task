@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="home-main">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <ul class="nav flex-column">
+                        <li class="btn btn-sm btn-outline-secondary">
+                            <a class="nav-link" style="color:deepskyblue;font-size: 20px" asp-area="" asp-controller="Company" asp-action="Index">
+                                Browse Company List
+                            </a>
+                        </li>
+                        <li class="btn btn-sm btn-outline-secondary">
+                            <a class="nav-link" style="color:deepskyblue;font-size: 20px" asp-area="" asp-controller="Employee" asp-action="Index">
+                                Browse Employee List
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-4"></div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <script src="~/js/NotAuthenticatedIndex.js"></script>
+
+}
+

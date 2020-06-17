@@ -1,0 +1,56 @@
+﻿@model CompanySearchResultsViewModel
+@if (@Model.Searched)
+{
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <form method="post">
+                    @if (Model.Companies.Count != 0)
+                    {
+                        @foreach (var item in Model.Companies)
+                        {
+                            <div class="row"><hr width="100%" class="lighter" /></div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p>
+                                        @item.Name / Created on: @item.CreationDate <br />
+                                        <button class="btn btn-sm btn-outline-secondary" style="color:deepskyblue;" asp-controller="Company" asp-action="GetEditCompany" name="submitButton" value="@item.Id">Manage</button>
+                                        <text> | </text>
+                                        <button class="btn btn-sm btn-outline-secondary" style="color:deepskyblue;" asp-controller="Company" asp-action="RemoveCompany" name="submitButton" value="@item.Id">Remove</button>
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class="col-2">
+                                @if (Model.Page != 1)
+                                {
+                                    <a class="btn btn-sm btn-outline-secondary" style="color:deepskyblue;" onclick="PrevPage()">Previous</a>
+                                }
+                            </div>
+                            <div class="col-2">
+                                Page: @Model.Page
+                            </div>
+                            <div class="col-2">
+                                @if (!Model.LastPage)
+                                {
+                                    <a class="btn btn-sm btn-outline-secondary" style="color:deepskyblue;" onclick="NextPage()">Next</a>
+                                }
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+                        <div hidden="hidden">
+                            <input id="current-page" asp-for="Page" value="@Model.Page" />
+                            <input id="current-keyword" asp-for="Keyword" value="@Model.Keyword" />
+                        </div>
+                    }
+                    else if (Model.Companies.Count == 0)
+                    {
+                        <p>No Companies found with that keyword.</p>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+}

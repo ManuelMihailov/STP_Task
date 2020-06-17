@@ -1,0 +1,56 @@
+﻿@model EmployeeSearchResultsViewModel
+@if (@Model.Searched)
+{
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <form method="post">
+                    @if (Model.Employees.Count != 0)
+                    {
+                        @foreach (var item in Model.Employees)
+                        {
+                            <div class="row"><hr width="100%" class="lighter" /></div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p>
+                                        @item.FirstName @item.LastName / Working at @item.CompanyName / Starting Date: @item.StartingDate / Salary: @item.Salary / Vacation Days: @item.VacationDays / @item.ExperienceLevel<br />
+                                        <button class="btn btn-sm btn-outline-secondary" style="color:deepskyblue;" asp-controller="Employee" asp-action="GetEditEmployee" name="submitButton" value="@item.Id">Edit</button>
+                                        <text> | </text>
+                                        <button class="btn btn-sm btn-outline-secondary" style="color:deepskyblue;" asp-controller="Employee" asp-action="RemoveEmployee" name="submitButton" value="@item.Id">Remove</button>
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class="col-2">
+                                @if (Model.Page != 1)
+                                {
+                                    <a class="btn btn-sm btn-outline-secondary" style="color:deepskyblue;" onclick="PrevPage()">Previous</a>
+                                }
+                            </div>
+                            <div class="col-2">
+                                Page: @Model.Page
+                            </div>
+                            <div class="col-2">
+                                @if (!Model.LastPage)
+                                {
+                                    <a class="btn btn-sm btn-outline-secondary" style="color:deepskyblue;" onclick="NextPage()">Next</a>
+                                }
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+                        <div hidden="hidden">
+                            <input id="current-page" asp-for="Page" value="@Model.Page" />
+                            <input id="current-keyword" asp-for="Keyword" value="@Model.Keyword" />
+                        </div>
+                    }
+                    else if (Model.Employees.Count == 0)
+                    {
+                        <p>No Employees found with that keyword.</p>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+}

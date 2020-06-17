@@ -1,0 +1,71 @@
+﻿@model CompanyEditViewModel
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h5>Edit Company</h5>
+            <form asp-action="EditCompany" asp-controller="Company">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" value="@Model.Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div hidden="hidden">
+                    <input asp-for="Id" value="@Model.Id" type="number" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">SaveChanges</button>
+                </div>
+            </form>
+            <form class="form" role="form" method="post" asp-action="AddOffice" asp-controller="Company">
+                <div class="form-group">
+                    <label class="control-label">Office Country</label>
+                    <input type="text" class="form-control" asp-for="@Model.NewOfficeCountry" placeholder="Enter Country Name">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Office City</label>
+                    <input type="text" class="form-control" asp-for="@Model.NewOfficeCity" placeholder="Enter City Name">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Office Street</label>
+                    <input type="text" class="form-control" asp-for="@Model.NewOfficeStreet" placeholder="Enter Street Name">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Street Number</label>
+                    <input type="text" class="form-control" asp-for="@Model.NewOfficeStreetNumber" placeholder="Enter Street Number">
+                </div>
+                <div hidden="hidden">
+                    <input asp-for="Id" value="@Model.Id" type="number" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Add Office</button>
+                </div>
+            </form>
+        </div>
+        <div class=" col-md-8">
+            <div class="container">
+                <h4>Offices:</h4>
+                <form method="post">
+                    @foreach (var item in Model.Offices)
+                    {
+                        <div class="row">@item.Country / @item.City / @item.Street @item.StreetNumber</div>
+                        <div class="form-group">
+                            <button class="btn" asp-controller="Company" asp-action="GetOfficeAssigning" name="submitButton" value="@item.Id">Manage Employees</button>
+                            @if (item.IsHeadquarter == 1)
+                            {
+                                <button class="btn btn-secondary" asp-controller="Company" asp-action="UnassignHeadquarter" name="submitButton" value="@item.Id">Unassign Headquarter</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-secondary" asp-controller="Company" asp-action="AssignHeadquarter" name="submitButton" value="@item.Id">Assign Headquarter</button>
+                            }
+                            <button class="btn" asp-controller="Company" asp-action="RemoveOffice" name="submitButton" value="@item.Id">Remove</button>
+                        </div>
+                        <div class="row">
+                            <hr />
+                        </div>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

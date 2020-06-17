@@ -1,0 +1,46 @@
+﻿@model EmployeeViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4 text-center">
+            <h3>
+                Add New Employee
+            </h3>
+            <form class="form" role="form" method="post" asp-action="AddEmployee" asp-controller="Employee">
+                <div class="form-group">
+                    <label class="control-label">First Name</label>
+                    <input type="text" class="form-control" asp-for="@Model.FirstName" placeholder="Enter First Name">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Last Name</label>
+                    <input type="text" class="form-control" asp-for="@Model.LastName" placeholder="Enter Last Name">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Starting Date</label>
+                    <input type="datetime-local" class="form-control" asp-for="@Model.StartingDate">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Salary</label>
+                    <input type="number" step="0.01" class="form-control" min="0" asp-for="@Model.Salary" placeholder="Enter Salary">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Vacation Days</label>
+                    <input type="number" class="form-control" asp-for="@Model.VacationDays" placeholder="Enter Vacation Days">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Experience Level</label>
+                    <select class="form-control" asp-for="@Model.ExperienceLevel">
+                        <option value="1">Junior</option>
+                        <option value="2">Mid</option>
+                        <option value="3">Senior</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Add</button>&nbsp;
+                </div>
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>

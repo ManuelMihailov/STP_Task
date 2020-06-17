@@ -1,0 +1,14 @@
+﻿@model OfficeViewModel
+<h3>@Model.CompanyName's office in @Model.Country, @Model.City / Street: @Model.StreetName</h3>
+<hr />
+<div id="employees">
+</div>
+<div hidden="hidden"><input type="text" value="@Model.Id" id="keyword" /></div>
+
+<script>
+    function SearchEventHandler() {
+        var Id = $('#keyword').val();
+        $('#employees').load('/company/getemployeesforoffice', { keyword: Id });
+    }
+    window.onload = SearchEventHandler;
+</script>
